@@ -19,6 +19,7 @@
 
 ##関数の宣言
 関数の宣言はファイルの最後に行う．
+https://jp.mathworks.com/help/matlab/matlab_prog/create-functions-in-files.html
 
     %返り値のない関数の宣言
     function calc0(a, b)
