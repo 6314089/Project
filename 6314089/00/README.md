@@ -6,3 +6,16 @@ MATLABの使い方を勉強する．
 - [test2.mについて](/6314089/00/test2.md)
 - [test3.mについて](/6314089/00/test3.md)
 - [test4.mについて](/6314089/00/test4.md)
+
+
+
+##信号解析で役に立ちそうな組み込み関数群
+色々信号の処理とかをやる上で役に立ちそうな関数を触ってみる．
+
+- [max](/6314089/00/max.md)
+
+###参考リンク
+色々使えそうな関数があるので試してみると良さそう．
+- [Signal Processing Toolbox 関数](https://jp.mathworks.com/help/signal/functionlist.html)
+- [記述統計](https://jp.mathworks.com/help/matlab/descriptive-statistics.html)
+- [変換](https://jp.mathworks.com/help/signal/transforms.html)
