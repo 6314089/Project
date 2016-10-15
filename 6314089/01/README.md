@@ -44,3 +44,8 @@ play.mにホワイトノイズを足して音を鳴らしてみる．
 A2のサイン波の`y`にノイズを重ねている．
 
 ノイズ除去とかやりたいならば，こうやって作ったものを使って実験してみるのもいいかもしれない．
+
+##ex_audiowrite.m
+https://jp.mathworks.com/help/matlab/ref/audiowrite.html
+
+`audiowrite`関数を利用する.
