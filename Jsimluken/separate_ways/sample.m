@@ -1,12 +1,19 @@
 b = audioread('B_A1.m4a');
-b = b(20000:40000,1);
 g = audioread('G_E2.m4a');
-g = g(20000:40000,1);
 gb = audioread('GB.m4a');
+
+b = b(20000:40000,1);
+g = g(20000:40000,1);
 gb = gb(20000:40000,1);
-sg = abs(fft(g));
+
 sb = abs(fft(b));
-sg = abs(fft(gb));
-res = separater(sgb,sg,sb);
-y = ifft(res);
-sound(y,44100);
+sg = abs(fft(g));
+sgb = abs(fft(gb));
+
+[res1,res2] = atmSeparater(sgb,sb,sg);
+
+%r1 = ifft(res1);
+%sound(r1,44100);
+%pause(1)
+%r2 = ifft(res2);
+%sound(r2,44100);
