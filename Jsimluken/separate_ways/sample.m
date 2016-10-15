@@ -1,0 +1,12 @@
+b = audioread('B_A1.m4a');
+b = b(20000:40000,1);
+g = audioread('G_E2.m4a');
+g = g(20000:40000,1);
+gb = audioread('GB.m4a');
+gb = gb(20000:40000,1);
+sg = abs(fft(g));
+sb = abs(fft(b));
+sg = abs(fft(gb));
+res = separater(sgb,sg,sb);
+y = ifft(res);
+sound(y,44100);
