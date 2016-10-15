@@ -2,6 +2,8 @@
 
 MATLABでwavファイルを生成するテスト．
 
+[create_sound.mについてはこちら](/6314089/01/create_sound.md)
+
 ##play.m
 とりあえず音を鳴らしてみる．
 
@@ -93,3 +95,7 @@ https://jp.mathworks.com/help/signal/ref/sawtooth.html
 
 'square'関数で矩形波を出力できる．
 https://jp.mathworks.com/help/signal/ref/sawtooth.html
+
+
+##create_sound.m
+[create_sound.mについて](/6314089/01/create_sound.md)
