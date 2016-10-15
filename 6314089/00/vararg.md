@@ -49,3 +49,90 @@ Javaの配列で可変長引数を受け取るのとは違ってデータ型は�
 MATLABの関数には関数のオーバーロードは存在しない．
 
 オーバーロードされた関数のようなものを作りたいときは，`varargin`で対応する必要がある．
+
+
+##varargoutについて
+http://jp.mathworks.com/help/matlab/ref/varargout.html
+
+戻り値を可変長にするやつ．`varargin`と似ている．
+
+    function [npks,varargout] = notpeaks(x)
+        [pks, locs] = findpeaks(x);
+
+        nlocs = setdiff(1:length(x), locs);
+        n = length(nlocs);
+
+        npks = zeros(1, n);
+        for k = 1:n
+            npks(k) = x(nlocs(k));
+        end
+
+        varargout{1} = nlocs;
+
+ピークではない部分を取り出すものを作った．
+`setdiff`は差集合を撮るもの．
+`x`の添字のうち`locs`に含まれないものを持ってきて，それを`nlocs`に．
+`nlocs`に対応する`x`の値を`npks`にしている．
+
+出力結果
+
+    >> x = [1 1 1 1 3 1 1 1 1 5 2 2 2 2 4 2 2 2 3 7 3 0 0 0 9]
+
+    x =
+
+      1 列から 14 列
+
+         1     1     1     1     3     1     1     1     1     5     2     2     2     2
+
+      15 列から 25 列
+
+         4     2     2     2     3     7     3     0     0     0     9
+
+    >> [pks, locs] = findpeaks(x)
+
+    pks =
+
+         3     5     4     7
+
+
+    locs =
+
+         5    10    15    20
+
+    >> [npks, nlocs] = notpeaks(x)
+
+    npks =
+
+      1 列から 14 列
+
+         1     1     1     1     1     1     1     1     2     2     2     2     2     2
+
+      15 列から 21 列
+
+         2     3     3     0     0     0     9
+
+
+    nlocs =
+
+      1 列から 14 列
+
+         1     2     3     4     6     7     8     9    11    12    13    14    16    17
+
+      15 列から 21 列
+
+        18    19    21    22    23    24    25
+
+
+    >> npks = notpeaks(x)
+
+    npks =
+
+      1 列から 14 列
+
+         1     1     1     1     1     1     1     1     2     2     2     2     2     2
+
+      15 列から 21 列
+
+         2     3     3     0     0     0     9
+
+出力引数1つと2つで動いているね．
