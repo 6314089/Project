@@ -46,18 +46,50 @@ A2のサイン波の`y`にノイズを重ねている．
 ノイズ除去とかやりたいならば，こうやって作ったものを使って実験してみるのもいいかもしれない．
 
 ##ex_audiowrite.m
-https://jp.mathworks.com/help/matlab/ref/audiowrite.html
+このプログラムを実行すると，sin.wav，saw.wav，tri.wav，squ.wavと言うファイルが実行ディレクトリに生成される．
+それぞれA2のサイン波，ノコギリ波，三角波，矩形波になっていると思う．
 
-`audiowrite`関数を利用する.
 
     f = 440;
     Fs = 44100;
     T = 1;
     t = 0:(1/Fs):T;
 
-    y = sin(2*pi*f*t);
 
-    audiowrite('sin.wav', y, Fs)
+    y1 = sin(2*pi*f*t);
+
+    audiowrite('sin.wav', y1, Fs)
+
+
+    y2 = sawtooth(2*pi*f*t);
+
+    audiowrite('saw.wav', y2, Fs)
+
+
+    %triangle wave
+    y3 = sawtooth(2*pi*f*t, 0.5);
+    plot(t,y3)
+    axis([0 0.01 -1 1])
+
+    audiowrite('tri.wav', y3, Fs)
+
+
+    y4 = square(2*pi*f*t);
+
+    audiowrite('squ.wav', y4, Fs)
+
+
+`audiowrite`関数を利用する.
+https://jp.mathworks.com/help/matlab/ref/audiowrite.html
 
 `audiowrite`にファイル名とオーディオデータとサンプルレートを入れるとオーディオファイルを書き出してくれる．書き出しオーディオファイルの形式はファイル名で指定する．
 ファイル名に`.wav`とつけておけばwavファイルで保存されるっぽい．
+
+
+`sawtooth`関数はノコギリ波を作ってくれる．
+https://jp.mathworks.com/help/signal/ref/sawtooth.html
+
+ノコギリのピークの位置を0～1で指定してやることができる．0.5にすれば三角波になっている．三角波になってることを確認するためにグラフを書いてる．
+
+'square'関数で矩形波を出力できる．
+https://jp.mathworks.com/help/signal/ref/sawtooth.html
