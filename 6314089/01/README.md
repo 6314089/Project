@@ -49,3 +49,15 @@ A2のサイン波の`y`にノイズを重ねている．
 https://jp.mathworks.com/help/matlab/ref/audiowrite.html
 
 `audiowrite`関数を利用する.
+
+    f = 440;
+    Fs = 44100;
+    T = 1;
+    t = 0:(1/Fs):T;
+
+    y = sin(2*pi*f*t);
+
+    audiowrite('sin.wav', y, Fs)
+
+`audiowrite`にファイル名とオーディオデータとサンプルレートを入れるとオーディオファイルを書き出してくれる．書き出しオーディオファイルの形式はファイル名で指定する．
+ファイル名に`.wav`とつけておけばwavファイルで保存されるっぽい．
