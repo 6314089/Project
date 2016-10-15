@@ -13,3 +13,8 @@ y2 = sawtooth(2*pi*f*t);
 
 audiowrite('saw.wav', y2, Fs)
 
+
+%triangle wave
+y3 = sawtooth(2*pi*f*t, 0.5)
+plot(t,y3)
+axis([0 0.01 -1 1])
