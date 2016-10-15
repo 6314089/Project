@@ -15,7 +15,7 @@ https://jp.mathworks.com/help/signal/ref/findpeaks.html
     findpeaks(y2);
 
 `findpeaks`は極大値の列を返してくれる．
-極大値の1も合わせて取ってくることもできる．
+返り値を2つ受け取れば極大値の位置も合わせて取ってくることもできる．
 
 返り値無しで呼び出すとグラフを書いてくれる．
 ![img10](/6314089/00/img/10.png)
