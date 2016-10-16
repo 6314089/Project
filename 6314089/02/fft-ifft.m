@@ -7,3 +7,14 @@ f = (0:n-1)*(Fs/n);
 
 plot(f, abs(Y))
 axis([0, 22050, 0, 30000])
+
+
+findpeaks(abs(Y(1:50000)), 'MinPeakHeight', 5000);
+axis([0, 22050, 0, 30000])
+[pks, locs] = findpeaks(abs(Y), 'MinPeakHeight', 5000);
+
+fs = locs*(Fs/n);
+
+fs(1:6)
+
+pks(1:6)
