@@ -9,9 +9,13 @@ plot(f, abs(Y))
 axis([0, 22050, 0, 30000])
 
 
-findpeaks(abs(Y(1:50000)), 'MinPeakHeight', 5000);
+%findpeaks(abs(Y(1:50000)), 'MinPeakHeight', 5000);
+findpeaks(abs(Y(1:50000)), 'MinPeakProminence', 2500);
 axis([0, 22050, 0, 30000])
-[pks, locs] = findpeaks(abs(Y), 'MinPeakHeight', 5000);
+%[pks, locs] = findpeaks(abs(Y), 'MinPeakHeight', 5000);
+[pks, locs] = findpeaks(abs(Y), 'MinPeakProminence', 2500);
+
+length(pks)
 
 fs = locs*(Fs/n);
 
