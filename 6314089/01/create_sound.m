@@ -10,13 +10,13 @@ function create_sound(filename, T, varargin)
         f = varargin{2+2*(k-1)};
         switch type
             case 'sin'
-                y = y + sin(2*pi*f*t);
+                y = y + sin(2*pi*f*t)/n;
             case 'saw'
-                y = y + sawtooth(2*pi*f*t);
+                y = y + sawtooth(2*pi*f*t)/n;
             case 'tri'
-                y = y + sawtooth(2*pi*f*t, 0.5);
+                y = y + sawtooth(2*pi*f*t, 0.5)/n;
             case 'squ'
-                y = y + square(2*pi*f*t);
+                y = y + square(2*pi*f*t)/n;
             otherwise
                 disp('Error: type is one of: sin, saw, tri, squ')
         end
