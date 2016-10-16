@@ -1,8 +1,9 @@
-[y, Fs] = audioread('../Audio/A4_saw.wav');
+%[input, Fs] = audioread('../Audio/A4_saw.wav');
+[input, Fs] = audioread('../Audio/A4_sin_F4_saw.wav');
 
-m = length(y); %window length
+m = length(input); %window length
 n = 2^nextpow2(m);
-Y = fft(y, n);
+Y = fft(input, n);
 f = (0:n-1)*(Fs/n);
 
 plot(f, abs(Y))
@@ -15,10 +16,19 @@ axis([0, 22050, 0, 30000])
 %[pks, locs] = findpeaks(abs(Y), 'MinPeakHeight', 5000);
 [pks, locs] = findpeaks(abs(Y), 'MinPeakProminence', 2500);
 
-length(pks)
 
-fs = locs*(Fs/n);
+YY = zeros(1, n);
 
-fs(1:6)
+nLocs = length(locs);
+for k = 1:nLocs
+    YY(locs(k)) = Y(locs(k));
+end
 
-pks(1:6)
+
+
+y = ifft(YY);
+y = y(1:m);
+
+sound(input, Fs)
+pause(2.5)
+sound(y, Fs)
