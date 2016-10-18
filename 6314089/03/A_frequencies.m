@@ -29,7 +29,7 @@ function ret = A_frequencies(filename)
             f= peekfs(j);
             if (Af >= f && Af / f <= threshold) ||...
                 (Af < f && f / Af <= threshold) %+-10cents
-               ret(i) = Y(locs(j));
+               ret(i) = Y(locs(j)) / n; %
             end
         end
     end
