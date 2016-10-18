@@ -3,8 +3,8 @@
 % Pre:
 %       signal = Windowed monophobic signal
 %**********************************************
-function nsdfCor = nsdf(signal, len)
-    nsdfCor = [];
+function ret = nsdf(signal, len)
+    ret = [];
     % For safety reason. Not sure if this is necessary
     MIN_WINDOW_LEN = 16;     % Random value
     MAX_WINDOW_LEN = 20000;  % Another random value
@@ -13,6 +13,10 @@ function nsdfCor = nsdf(signal, len)
         len = length(signal);
     end
     
+    % Return if the window's length is invalid
+    if (len < MIN_WINDOW_LEN || MAX_WINDOW_LEN < len)
+        return;
+    end
     % Set the window size
     W = len;
     % Maximum delay is half of the window size
@@ -28,10 +32,22 @@ function nsdfCor = nsdf(signal, len)
         signal = signal';
     end
     
-    % Expand signal and get ACF
-    paddingLength = 2 ^ nextpow2(2 * (W + w) - 1) - W;
-    ffted = fft([signal; zeros(paddingLength, 1)]);
-    acf = ffted .* con
+    % Expand signal and get ACF part
+    paddingLength = 2 ^ nextpow2(2 * (W + w) - 1);
+    ffted = fft(signal, paddingLength);
+    acf = ifft(ffted .* conj(ffted));
+    % Arrange acf to lag-based-symmetry order
+    % Start index is "-(W-1)" index W is where lag = 0
+    acf = [acf(end - W + 2: end); acf(1:W)];
+    
+    %-----
+    % Well ... maybe the process till here can be replaced by xcorr()
+    %-----
+    
+    % Get summation part
+    tau = w;    % Iterator
+    
+    
     
     return;
 end

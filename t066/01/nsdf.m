@@ -19,7 +19,7 @@ function ret = nsdf(signal, len)
     end
     % Set the window size
     W = len;
-    % Maximum delay is half of the window size
+    % Shifting amount for NSDF (not sure though lol)
     w = W / 2;
     
     % Check dimension
@@ -32,18 +32,24 @@ function ret = nsdf(signal, len)
         signal = signal';
     end
     
-    % Expand signal and get ACF part
+    % Expand signal and get ACF (AutocorrelationFunction)  part
     paddingLength = 2 ^ nextpow2(2 * (W + w) - 1);
     ffted = fft(signal, paddingLength);
     acf = ifft(ffted .* conj(ffted));
-    
-    ret = acf;  % *** TEMP ***
+    % Arrange acf to lag-based-symmetry order
+    % Start index is "-(w-1)" index w is where lag = 0
+    acf = [acf(end - w + 2: end); acf(1:w)];
     
     %-----
     % Well ... maybe the process till here can be replaced by xcorr()
     %-----
     
     % Get summation part
+    for tau = w : W + w
+        
+    end
     
+    
+    ret = acf;
     return;
 end
