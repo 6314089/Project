@@ -15,3 +15,6 @@ function play_a (Afs, T)
     
     sound(y, Fs);
     
+    pause(T+0.2)
+    
+    soundsc(y, Fs);
