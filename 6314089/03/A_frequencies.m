@@ -8,34 +8,29 @@ function ret = A_frequencies(filename)
     Y = fft(input, n);
     
     %get peek frequencies and length
-    [pks, locs] = findpeaks(abs(Y), 'MinPeakProminence', 2500);
-    fs = (locs-1)*(Fs/n); %turn locs into 0 start and frequencies
-    nfs = ceil(length(fs)/2);
+    [~, locs] = findpeaks(abs(Y), 'MinPeakProminence', 2500);
+    peekfs = (locs-1)*(Fs/n); %turn locs into "0 start" and into frequencies
+    npeekfs = ceil(length(peekfs)/2);
     
     %get key A frequencies and length
-    Asf = get_A;
-    nAsf = length(Asf);
+    Afs = get_A;
+    nAfs = length(Afs);
        
     %fill return value with 0
-    ret = zeros(1, length(Asf));
+    ret = zeros(1, length(Afs));
 
-    %
-    ratio = 0;    
+    %10cents
+    threshold = nthroot(2, 12*10);    
 
     
-    for i = 1:nAsf
-        Af = Asf(i);
-        for j = 1:nfs
-            f= fs(j);
-            
-            if Af >= f
-                ratio = Af / f;
-            else
-                ratio = f / Af;
-            end
-            
-            if ratio <= threshold
-               ret(i) = pks(j);
+    for i = 1:nAfs
+        Af = Afs(i);
+        for j = 1:npeekfs
+            f= peekfs(j);
+            if (Af >= f && Af / f <= threshold) ||...
+                (Af < f && f / Af <= threshold) %+-10cents
+               ret(i) = Y(locs(j));
             end
         end
     end
+    
