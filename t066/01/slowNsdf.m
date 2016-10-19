@@ -26,17 +26,21 @@ function ret = slowNsdf(signal, len)
     end
     
     %calc SDF
-    sdf = zeros(W, 1);
-    for tau = 0:W - 1
-        accum = 0;
-        m = 0;
+    ret = zeros(W / 2, 1);
+    %
+    r = zeros(W / 2 + 1, 1);
+    m = zeros(W / 2 + 1, 1);
+    %
+    for tau = 0:W / 2 - 1
+        %
+        %
         for j = 1:W - tau
-            m = m + signal(j) ^ 2 + signal(j + tau) ^ 2;
-            accum = accum + (signal(j) - signal(j + tau))^ 2;
+            r(tau + 1) = r(tau + 1) + signal(j) * signal(j + tau);
+            m(tau + 1) = m(tau + 1) + signal(j) ^ 2 + signal(j + tau) ^ 2;
         end
-        sdf(tau + 1) = 1 - accum / m;
+        ret(tau + 1) = r(tau + 1) * 2 / m(tau + 1);
     end
     
-    ret = sdf;
+    %ret = [r*2 m];
     return;
 end
