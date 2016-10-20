@@ -14,6 +14,10 @@ function ret = nsdf(signal, len)
     % Use signal length as default window length
     if (~exist('len', 'var'))
         len = length(signal);
+    else
+        % Recall nsdf with no "len" param but windowed "signal"
+        ret = nsdf(signal(1:len));
+        return
     end
     
     % Return if the window's length is invalid
@@ -51,9 +55,7 @@ function ret = nsdf(signal, len)
     % Get summation part
     % Set m
     signalPow2 = signal .* signal;
-    if length(signalPow2) < W + w
-        signalPow2 = [signalPow2; zeros(W + w - length(signalPow2), 1)];
-    end
+
     m = zeros(w + 1, 1); % m(index) where index-1 = tau
     m(1) = sum(signalPow2) * 2;
     for j = 1 : w
