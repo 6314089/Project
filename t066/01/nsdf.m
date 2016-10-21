@@ -2,42 +2,12 @@
 % Returns NSDF of input signal if successful / [] if failed
 % Pre:
 %       signal = Windowed monophobic signal
-%       len    = Compute length. Must be an even number.
-%                signal's length will be used
-%                when no parameter is given.
 %***********************************************************
-function ret = nsdf(signal, len)
-    ret = [];
-    % For safety reason. Not sure if this is necessary
-    MIN_WINDOW_LEN = 16;     % Random value
-    MAX_WINDOW_LEN = 20000;  % Another random value
-    % Use signal length as default window length
-    if (~exist('len', 'var'))
-        len = length(signal);
-    else
-        % Recall nsdf with no "len" param but windowed "signal"
-        ret = nsdf(signal(1:len));
-        return
-    end
-    
-    % Return if the window's length is invalid
-    if (len < MIN_WINDOW_LEN || MAX_WINDOW_LEN < len || mod(len, 2) == 1)
-        return;
-    end
+function ret = nsdf(signal)
     % Set the window size
-    W = len;
+    W = length(signal);
     % Maximum delay amount is half the window size (maybe lol)
     w = W / 2;
-    
-    % Check dimension
-    if (size(signal, 2) > 1)
-        if (size(signal, 1) > 2)
-            % Signal isn't monophobic
-            return;
-        end
-        % Column vector to row vector
-        signal = signal';
-    end
     
     % Expand signal and get ACF (AutocorrelationFunction)  part
     paddingLength = 2 ^ nextpow2(2 * (W + w) - 1);
@@ -45,7 +15,8 @@ function ret = nsdf(signal, len)
     acf = ifft(ffted .* conj(ffted));
     % Arrange acf to lag-based-symmetry order
     % Start index is "-(w-1)" index w is where lag = 0
-    % ** seems there's something I don't understand. I decided to take another way, thus, this got commented **
+    % ** seems there's something I don't understand
+    %    I decided to take another way, thus, this got commented **
     % acf = [acf(end - w + 2: end); acf(1:w)];
     
     %-----
