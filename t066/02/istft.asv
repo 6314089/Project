@@ -18,12 +18,5 @@ function ret = istft(spectrogram, window, step)
     end
     
     % Modify overlapped part
-    for i = 1:length(ret)
-        % Avoid zero division
-        if counter(i) > 1e-7
-            ret(i) = ret(i) / counter(i);
-        end
-    end
     
-    return
 end
