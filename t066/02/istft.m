@@ -1,5 +1,4 @@
-function ret = istft(spectrogram, window, step)
-    frameLen = length(window);
+function ret = istft(spectrogram, windowHandler, step, frameLen)
 
     % Prepare for reconstructing
     num = size(spectrogram, 2);
@@ -12,7 +11,7 @@ function ret = istft(spectrogram, window, step)
     e = frameLen;
     for i = 1:num
         ret(s:e) = ret(s:e) + ifft(spectrogram(:, i));
-        counter(s:e) = counter(s:e) + window;
+        counter(s:e) = counter(s:e) + windowHandler(frameLen);
         s = s + step;
         e = e + step;
     end

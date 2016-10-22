@@ -1,5 +1,4 @@
-function [ret, f, t] = stft(signal, window, step, fs)
-    len = length(window);
+function [ret, f, t] = stft(signal, windowHandler, step, len, fs)
 
     % Separate signal into frames
     num = floor((length(signal) - len) / step) + 1;
@@ -13,7 +12,7 @@ function [ret, f, t] = stft(signal, window, step, fs)
     s = 1;
     e = len;
     for i = 1:num
-        ret(:, i) = fft(signal(s:e) .* window, len);
+        ret(:, i) = fft(signal(s:e) .* windowHandler(len), len);
         s = s + step;
         e = e + step;
     end
