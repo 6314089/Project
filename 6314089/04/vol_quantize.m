@@ -1,6 +1,6 @@
 function vol = vol_quantize(data, N)
     ndata = length(data);
-    K = ceil(ndata / N);
+    K = floor(ndata / N);
     
     vol = zeros(1, K);
     for k = 1:K
