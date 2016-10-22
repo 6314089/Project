@@ -1,7 +1,7 @@
 %***********************************************************
 % Returns NSDF of input signal if successful / [] if failed
 % Pre:
-%       signal = Windowed monophobic signal
+%       signal = Windowed monophonic signal
 %***********************************************************
 function ret = nsdf(signal)
     % Set the window size

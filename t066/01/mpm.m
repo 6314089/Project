@@ -1,7 +1,7 @@
 %*************************************************************************
-% Returns highest possible hz of input signal if successful / 0 if failed
+% Returns the highest possible f0 of input signal if successful / 0 if failed
 % Pre:
-%       signal = (Windowed) Monophobic signal in a column vector
+%       signal = (Windowed) Monophonic signal in a column vector
 %       fs     = signal's frequency [Hz]
 %       len    = Window's length. Must be an even number.
 %                signal's length will be used when no parameter is given.
@@ -27,7 +27,7 @@ function hz = mpm(signal, fs, len, k)
     % Check dimension
     if (size(signal, 2) > 1)
         if (size(signal, 1) > 2)
-            % Signal isn't monophobic
+            % Signal isn't monophonic
             return;
         end
         % Column vector to row vector
