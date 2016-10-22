@@ -1,11 +1,13 @@
 % Read audio
-[y, fs] = audioread('test10k.wav');
-% mono
-y = y(:, 1);
+[y, fs] = audioread('../Audio/Riff2.wav');
+% Let me make this one to mono by just adding both channel and dividing it by2
+y = (y(:, 1) + y(:, 2)) / 2;
 
 % stft
-[stfted, f, t] = stft(y, hann(512), 256, fs);
-%  ABS and RAD
+width = 4096;
+step = 2048;
+[stfted, f, t] = stft(y, @hann, step, width, fs);
+%  Absolute value and Phase
 Y = abs(stfted);
 phase = angle(stfted);
 
@@ -15,10 +17,18 @@ phase = angle(stfted);
 %set(gca, 'Yscale', 'log');
 
 % NMF
-k = 4;
+k = 5;  % Only 5 pitchs are used in sample audio
 [W, H] = nnmf(Y, k);
+[W, H] = nnmf(Y, k, 'algorithm', 'mult', 'w0', W, 'h0', H);
 
+% Write into parts
 for i = 1:k
-    ty = istft(W(:, k) * H(k, :) .* exp(1j * phase), hann(512), 216);
-    soundsc(ty
+    ty = istft(W(:, i) * H(i, :) .* exp(1j * phase), @hann, step, width);
+    ty = abs(ty) .* cos(angle(ty));
+    audiowrite(strcat('temp', num2str(i), '.m4a'), ty, fs);
 end
+
+% Write Mixed one
+ty = istft(W * H .* exp(1j * phase), @hann, step, width);
+ty = abs(ty) .* cos(angle(ty));
+audiowrite(strcat('temp1to5mixed.m4a'), ty, fs);

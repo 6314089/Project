@@ -1,7 +1,7 @@
 % Read audio
 [y, fs] = audioread('../Audio/Riff2.wav');
-% mono
-y = y(:, 1);
+% Convert to mono
+y = (y(:, 1) + y(:, 2)) / 2;
 
 % stft
 width = 4096;
@@ -31,4 +31,4 @@ end
 % Write Mixed one
 ty = istft(W * H .* exp(1j * phase), @hann, step, width);
 ty = abs(ty) .* cos(angle(ty));
-audiowrite(strcat('temp1to4mixed.m4a'), ty, fs);
+audiowrite(strcat('temp1to5mixed.m4a'), ty, fs);
