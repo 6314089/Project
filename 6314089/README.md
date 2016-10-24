@@ -40,6 +40,10 @@ MATLABの信号処理に利用する関数へのリンク集．
   - [fft](https://jp.mathworks.com/help/matlab/ref/fft.html)
   - [ifft](https://jp.mathworks.com/help/matlab/ref/ifft.html)
   - [spectrogram](https://jp.mathworks.com/help/signal/ref/spectrogram.html)
+  - [ウィンドウ](https://jp.mathworks.com/help/signal/ug/windows.html)
+  MATLAB標準で実装されている窓関数．
+    - [hann](https://jp.mathworks.com/help/signal/ref/hann.html)
+    列ベクトルに対してかけるので注意
 - [Signal Processing Toolbox の例](https://jp.mathworks.com/help/signal/examples.html#buoqcgw-1)
 信号の可視化だとか平滑化だとかピーク解析に類似度に様々なデジタル変換やスペクトル解析などといった使えそうな例へのリンク集
 - [スペクトル解析](https://jp.mathworks.com/help/signal/spectral-analysis.html)
@@ -57,6 +61,8 @@ findpeaksの使い方含めてピーク解析の仕方．
 MATLABでの論理演算について．
 - [集合演算](https://jp.mathworks.com/help/matlab/set-operations.html)
 MATLABでの集合演算について．
+- [imagesc](https://jp.mathworks.com/help/matlab/ref/imagesc.html)
+色をプロットするようなやつ．
 
 
 ###MATLABを実際に利用してる例のようなもの
@@ -102,6 +108,7 @@ FFTのサンプル点数とか．
 離散フーリエ変換・逆離散フーリエ変換などについて．Javaのコードも載っている．
 - [フーリエ変換，逆変換をして元の波形に戻るか？](http://www.me.cs.scitec.kobe-u.ac.jp/~takigu/jugyou/shingou/0210/ensyuu/Fourier.pdf)
 - [Pythonで短時間フーリエ変換（STFT）と逆変換](http://yukara-13.hatenablog.com/entry/2013/11/17/210204)
+自分がstftとistftを実装するときに参考にした．
 - [フーリエ逆変換を用いたローパスフィルタ（Player10）](http://www.kuma-de.com/blog/2008-09-01/84)
 - [FFT フィルタ](http://blog.hulinks.co.jp/2010/12/flexpro-fft-filter.html)
 FFTをかけてから特定周波数成分を消してIFFTしている．
