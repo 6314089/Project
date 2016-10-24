@@ -1,4 +1,5 @@
-function ret = cost_S_freq(P, N, K)
+function ret = cost_S_freq(P)
+[K, N] = size(P);
 ret = 0;
 for n = 1:N
     for k = 1:K-1
