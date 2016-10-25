@@ -67,7 +67,7 @@ for n = 1:N
         
         r = angle(Y(k, n));
         H(k, n) = complex(H(k, n) * cos(r), H(k, n) * sin(r));
-        H(k, n) = complex(P(k, n) * cos(r), P(k, n) * sin(r));
+        P(k, n) = complex(P(k, n) * cos(r), P(k, n) * sin(r));
     end
 end
 
