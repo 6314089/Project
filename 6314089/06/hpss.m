@@ -75,6 +75,6 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ナイキスト数以降を共役対称にする
 for i = (Nyquist + 1):K
-    H(i, :) = conj(H(K-i+1, :));
-    P(i, :) = conj(P(K-i+1, :));
+    H(i, :) = conj(H(mod(K-i+1,K)+1, :));
+    P(i, :) = conj(P(mod(K-i+1,K)+1, :));
 end
