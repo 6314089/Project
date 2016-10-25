@@ -7,18 +7,35 @@ theta = zeros(K, N);
 for i = 1:num
     for n = 1:N
         for k = 1:K
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % H(k, n)の更新式
             a = 4 + u;
-            b = (H(k, n-1) + H(k, n+1));
+            if n == 1
+                b = H(k, n+1);
+            elseif n == N
+                b = H(k, n-1);
+            else
+                b = (H(k, n-1) + H(k, n+1));
+            end
             c = u * theta(k, n) * (Y(n, k))^2;
             H(k, n) = (b + sqrt(b^2 +a*c)) / a;
             
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % P(k, n)の更新式
             a = 4 + u/w;
-            b = (P(k-1, n) + P(k+1, n));
+            if k == 1
+                b = P(k+1, n);
+            elseif k == K
+                b = P(k-1, n);
+            else
+                b = (P(k-1, n) + P(k+1, n));
+            end
             c = u/w * (1 - theta(k, n)) * (Y(n, k))^2;
-            H(k, n) = (b + sqrt(b^2 +a*c)) / a;
-            P(k, n)
+            P(k, n) = (b + sqrt(b^2 +a*c)) / a;
             
-            theta(k, n) = H(k, n).^2 / (H(k, n).^2 + P(k, n).^2);
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % theta(k, n)の更新式
+            theta(k, n) = H(k, n)^2 / (H(k, n)^2 + P(k, n)^2);
         end
     end
 end
