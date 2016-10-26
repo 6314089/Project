@@ -9,7 +9,7 @@
 % H : 調波成分のスペクトログラム（K*N行列）
 % P : 打楽器成分のスペクトログラム（K*N行列）
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [H, P] = hpss(Y, gamma, w, u, num)
+function [H, P] = hpss_core(Y, gamma, w, u, num)
 [K, N] = size(Y);
 Nyquist = ceil(K/2);
 YY = abs(Y).^gamma;
