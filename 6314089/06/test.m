@@ -13,8 +13,10 @@ X = stft(mono(data), window, step);
 Y = istft(X, window, step);
 audiowrite('all.wav', Y, Fs);
 
-Yh = istft(H, window, step);
+%Yh = istft(H, window, step);
+Yh = istft_no_window_func(H, window, step);
 audiowrite('H_all.wav', Yh, Fs);
 
-Yp = istft(P, window, step);
+%Yp = istft(P, window, step);
+Yp = istft_no_window_func(P, window, step);
 audiowrite('P_all.wav', Yp, Fs);
