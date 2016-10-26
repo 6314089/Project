@@ -68,3 +68,33 @@ HPSSを行うと，このバイオリンに含まれている縦方向になめ�
 
 
 とりあえずこの適当な楽曲をモデル音源としてHPSSを行ってみることにする．果たしてうまくいくだろうか．
+
+
+##HPSSの実装
+[スペクトログラムの長距離滑らかさを考慮した 調波打楽器音分](https://www.google.co.jp/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&cad=rja&uact=8&ved=0ahUKEwiF8dmPnfPPAhUGHJQKHaNxDTwQFgg6MAQ&url=https%3A%2F%2Fipsj.ixsq.nii.ac.jp%2Fej%2Findex.php%3Faction%3Dpages_view_main%26active_action%3Drepository_action_common_download%26item_id%3D91817%26item_no%3D1%26attribute_id%3D1%26file_no%3D1%26page_id%3D13%26block_id%3D8&usg=AFQjCNFk0b8s3Yy0P9BKwcMwMQPL8iGL3Q)  
+この論文の前半の長距離滑らかを考慮していない普通のHPSSを実装した．
+ただし，論文は偏微分の計算が間違っているようなので正しい値を利用した．
+もしかしたら自分が間違っているのかもしれないが．
+
+論文に書かれているものの実装は`hpss_core.m`である．
+`hpss.m`は`stft`や`istft`なども組み合わせたものになっている．
+
+`hpss`を使うには`test_hpss.m`を実行すれば良い．
+`window`や`step`などの上の方に書かれているやつはhpssやその前段階のstftで必要になるパラメータである．
+
+実行すると`H.wav`と`P.wav`が出力される．
+
+`test_hpss.m`では捨てているが，`[H, P] = hpss(...)`とすれば
+`H`と`P`のスペクトログラムも手に入る．
+
+`stft`の窓関数には`hann`を利用しているが，`istft`のときにその逆数をかけると値がうまく行かなかった．
+`H`や`P`のスペクトログラムの最適化の過程で，窓関数の情報が抜け落ちてしまうのかもしれない．
+そこで，`H`や`P`から音声を復元する際には，窓関数を一切使わないで`istft`をかけている．
+そのせいで若干音がおかしいような気もする．
+改善案求ム．
+
+
+これの精度を上げるにはパラメータの設定は重要である．
+windowサイズを大きくすると周波数方向の分解能が上がり，stepサイズを小さくすると時間方向の分解能が上がることになる．
+今回の実装のHPSSでは隣り合うサンプルの差を足し合わせたものを滑らかさとしている．
+分解能の違いによって，隣り合っているサンプルであっても本来どのくらい離れた位置のサンプルなのか変わってくるので，周波数方向の滑らかさや時間軸方向への滑らかさの評価値と言うのは変わってきてしまい，最適化の計算結果も変わってしまう．
