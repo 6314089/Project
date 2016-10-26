@@ -28,6 +28,9 @@ HPSSを利用したコード認識など．
 
 HPSSと言うのは様々な音声解析に利用されているようだ．
 
+- [音楽音響信号の実時間 加工技術 - 情報処理学会電子図書館](https://www.google.co.jp/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&cad=rja&uact=8&ved=0ahUKEwjwlZjxzPfPAhWBfrwKHVMfCsUQFgg6MAQ&url=https%3A%2F%2Fipsj.ixsq.nii.ac.jp%2Fej%2Findex.php%3Faction%3Dpages_view_main%26active_action%3Drepository_action_common_download%26item_id%3D60831%26item_no%3D1%26attribute_id%3D1%26file_no%3D1%26page_id%3D13%26block_id%3D8&usg=AFQjCNEheE8sauKV5qyXgpZZASUZaVJ5QQ)  
+HPSSについても触れられている．
+
 ##スペクトログラムを描画してみる
 とりあえず論文で言われているような性質（調波成分・打楽器成分の異方性）が
 本当にあるのか見るために，用意した楽曲に対してスペクトログラムを描いてみる．
