@@ -7,7 +7,7 @@ for k = 1:ndata
     s = (k - 1) * step + 1;
     e = s + width - 1;
     
-    y = (ifft(data(:, k)) ./ hann(width));
+    y = (ifft(data(:, k), 'symmetric') ./ hann(width));
     
     i = s:e;
     i = i(hann(width) ~= 0);
