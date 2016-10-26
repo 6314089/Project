@@ -1,5 +1,5 @@
-window = 4096;
-step = 2048;
+window = 1024;
+step = 512;
 gamma = 0.3;
 w = 1;
 u = 1;
