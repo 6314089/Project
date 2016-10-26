@@ -6,11 +6,13 @@ num = 30;
 
 [data, Fs] = audioread(audio);
 
-X = stft(mono(data), window, step);
+%X = stft(mono(data), window, step);
+X = stft_no_window_func(mono(data), window, step);
 
 [H, P] = hpss(X, 0.3, 1, 1, num);
 
-Y = istft(X, window, step);
+%Y = istft(X, window, step);
+Y = istft_no_window_func(X, window, step);
 audiowrite('all.wav', Y, Fs);
 
 %Yh = istft(H, window, step);
