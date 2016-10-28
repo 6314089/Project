@@ -1,9 +1,8 @@
-function y = stereoICA(filename)
-    [data,~] = audioread(filename);
-    V = getWhitener(data);
-    X_ = V * data';
-    angle = maxKurtosis(X_);
+function y = stereoICA(X)
+    %[data,~] = audioread(filename);
+    V = getWhitener(X);
+    Z = V * X';
+    angle = maxKurtosis(Z);
     U = TRolling(angle);
-    y = U * X_;
-    
+    y = U * Z;
 return
