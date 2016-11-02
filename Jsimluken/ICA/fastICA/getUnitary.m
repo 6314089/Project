@@ -3,7 +3,6 @@ function U = getUnitary(Z)
     y = Z;
     len = size(Z);
     channel = len(1);
-    %n = len(2);
     U = eye(channel); 
     for index = 1:channel
         for count = 1:10
@@ -18,8 +17,6 @@ function U = getUnitary(Z)
             end
             U(index,:) = U(index,:) - su;
             div = U(index,:)/ norm(U(index,:)) - orgU;
-            disp([index,count]);
-            disp(sum(div)/channel);
             U(index,:) = U(index,:)/ norm(U(index,:));
         end
     end
