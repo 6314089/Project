@@ -14,12 +14,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [H, P] = hpss(path, window, step, gamma, w, u, num)
 [data, Fs] = audioread(path);
-X = stft(mono(data), window, step);
+X = stft(mono(data), @hann, step, window, Fs);
 
 [H, P] = hpss_core(X, gamma, w, u, num);
 
-Yh = istft(H, window, step);
+Yh = istft(H, @hann, step, window);
 audiowrite('H.wav', Yh, Fs);
 
-Yp = istft(P, window, step);
+Yp = istft(P, @hann, step, window);
 audiowrite('P.wav', Yp, Fs);
