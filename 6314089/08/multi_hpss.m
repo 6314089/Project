@@ -18,6 +18,9 @@
 % u2      : 最適化時の Y と H+P の一致度合いに対する重さ
 % n2      : 更新回数
 %
+% audio   : 結果をオーディオファイルに書き出すかどうか
+%           trueもしくはfalse
+%
 %%[argout]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % H1      : ビブラート音，打楽器音以外のスペクトログラム
@@ -28,7 +31,8 @@
 function [H1, H2, P2] = multi_hpss (...
 path, ...
 frame1, step1, gamma1, w1, u1, n1, ...
-frame2, step2, gamma2, w2, u2, n2 ...
+frame2, step2, gamma2, w2, u2, n2, ...
+audio ...
 )
 
 [X, Fs] = audioread(path);
@@ -40,3 +44,15 @@ Xp1 = istft(P1, @hann, step1, frame1);
 
 Yp1 = stft(Xp1, @hann, step2, frame2, Fs);
 [H2, P2] = hpss_core(Yp1, gamma2, w2, u2, n2);
+
+
+if audio
+    Yh1 = istft(H1, @hann, step1, frame1);
+    audiowrite('H1.wav', Yh1, Fs);
+    
+    Yp2 = istft(P2, @hann, step2, frame2);
+    audiowrite('P2.wav', Yp2, Fs);
+    
+    Yh2 = istft(H2, @hann, step2, frame2);
+    audiowrite('H2.wav', Yh2, Fs); 
+end
