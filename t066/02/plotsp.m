@@ -11,7 +11,7 @@ function plotsp(spectrogram, f, t, halfLength)
     % Plot only half of given length if halfLength == true
     if (halfLength)
         f = f(1:length(f) / 2 + 1);
-        spectrogram = spectrogram(1:length(spectrogram) / 2 + 1, :);
+        spectrogram = spectrogram(1:size(spectrogram, 1) / 2 + 1, :);
     end
     
     % Plot
@@ -19,4 +19,5 @@ function plotsp(spectrogram, f, t, halfLength)
     surf(t, f, db, 'edgecolor', 'none');
     axis tight;
     view(0, 90);
+    colorbar();
 end
