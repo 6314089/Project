@@ -17,8 +17,8 @@ k = 5;  % Only 5 pitchs are used in sample audio
 [W, H] = nnmf(Y, k, 'algorithm', 'mult', 'w0', W, 'h0', H);
 
 % stft
-width = 8192;
-step = 4096;
+width = 4096*4;
+step = 2048*4;
 [stfted2, f2, t2] = stft(y, @hann, step, width, fs);
 %  Absolute value and Phase
 Y2 = abs(stfted2);

@@ -18,39 +18,21 @@ for i=1:b
     end
     v=0;
     for k=1:m
-        v=v+l(k)*44100/8192/k;
+        v=v+l(k)*44100/4096/4/k;
     end
     v=v/m*2
     
-    P=[87.31 , 98 , 110 , 123.47 , 130.81 , 146.83 , 164.81];
-    
-    V=abs(v-P(3));
-    p(i)=1;%A=ra
-    if abs(v-P(4)) < V
-        p(i)=2;%B=si
-        V=abs(v-P(4));
+    P=[87.31 , 92.5 , 98 , 103.83 , 110 , 116.54 , 123.47 , 130.81 , 138.59 , 146.83 , 155.56 , 164.81];
+    %P(1)=F=fa,P(5)=A=ra
+    V=100;
+    p(i)=0;
+    for q=1:length(P)        
+        if abs(v-P(q)) < V
+        p(i)=q;
+        V=abs(v-P(q));
     end
-    if abs(v-P(5)) < V
-        p(i)=3;%C=do
-        V=abs(v-P(5));
-    end %
-    if abs(v-P(6)) < V
-        p(i)=4;%D=re
-        V=abs(v-P(6));
-    end    
-    if abs(v-P(7)) < V
-        p(i)=5;%E=mi
-        V=abs(v-P(7));
     end
-    if abs(v-P(1)) < V
-        p(i)=6;%F=fa
-        V=abs(v-P(1));
-    end  
-    if abs(v-P(2)) < V
-        p(i)=7;%G=so
-        V=abs(v-P(2));
-    end        
-    
+        
 end
 p
 end
