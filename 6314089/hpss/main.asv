@@ -1,0 +1,2 @@
+function main(path)
+hpss(path, 2048, 1024, 0.5, 1, 1, 30);
