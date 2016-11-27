@@ -15,4 +15,4 @@ const events = mf.getMidiEvents();
 events.length = 50;
 // console.log(events);
 
-events.map(e => `time: ${e.playTime} [track: ${e.track}] subtype: ${e.subtype}, param1: ${e.param1}, param2: ${e.param2}`).forEach(console.log.bind(console));
+events.map(e => `time: ${e.playTime} [track: ${e.track}] subtype: ${e.subtype}, param1: ${e.param1}, param2: ${e.param2}`).forEach(str => console.log(str));
