@@ -1,0 +1,9 @@
+{
+  "name": "midi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "No License",
+  "dependencies": {
+    "midifile": "^1.0.4"
+  }
+}
