@@ -14,16 +14,22 @@ end
 avoidZero = 1e-27;
 
 for r = 1:100
-    for o = (1:O)
-        for d1 = (1:rank)
-            H(o,t) = h(o,d1) * (Y*U'/(H*(U*U')));
-        end
-    end
-    for d2 = (1:rank)
-       for t = 1:T
-           U(d2,t) = U(d2,t)*(H'*Y/(H'*H*U+gamma*p*abs(u(d2,t)^(p-2))));
-       end
-    end
+    
+    
+    H = H .* (Y*U'./(H*(U*U')+avoidZero));
+    U = U.*(H'*Y./(H'*H*U+gamma*p.*abs(U.^(p-2))+avoidZero));
+    %for o = (1:O)
+     %   for d1 = (1:rank)
+      %      tmp = H(o,d1) * (Y*U'./(H*(U*U')+avoidZero));
+       %     disp(size(tmp));
+        %    H(o,d1) = tmp;
+        %end
+    %end
+   % for d2 = (1:rank)
+    %   for t = 1:T
+          % U(d2,t) = U(d2,t)*(H'*Y./(H'*H*U+gamma*p*abs(u(d2,t)^(p-2))+avoidZero));
+     %  end
+end
     
     
     
