@@ -1,5 +1,5 @@
 % Read audio
-[y, fs] = audioread('Riff2.wav');
+[y, fs] = audioread('bass.wav');
 % Convert to mono
 y = (y(:, 1) + y(:, 2)) / 2;
 

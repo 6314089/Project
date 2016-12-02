@@ -1,7 +1,7 @@
 function r = pitch(w)
 [a,b]=size(w);
 n=5;
-t=300;
+t=150;
 r=zeros(1,b);
 for i=1:b
     l=[];
@@ -35,27 +35,26 @@ for i=1:b
     C=0;
     for s1=1:2
         for s2=0:9
-            s=strcat('temp/',s1*1000+s2*100+p,'.wav')
+            s=strcat('temp/',num2str(s1*1000+s2*100+p),'.wav');
             if exist(s) ~= 0
                 S=sample(s);
                 l2=[];
                 [y2,x2] = findpeaks(S(1:(length(S)/2)));
                 for j=1:length(x2)
-                    if S(j) > 1000
+                    if S(j) > t
                         l2=[l2,x2(j)];
                     end
                     if length(l) == length(l2)
                         break
                     end
                 end
-                c=corrcoef(l,l2);
+                c=corrcoef(l(1:length(l2)),l2);
                 if abs(c(1,2)) > C
-                    C=abs(c(1,2))
+                    C=abs(c(1,2));
                     r(i)=s1*1000+s2*100+p;
                 end
             end
         end
     end
 end
-r
 end
