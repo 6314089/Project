@@ -49,7 +49,7 @@ function [F,G,H,U] = psnmf(Y,F,rank,mew)
                    tmpUN = tmpUN + H(omega,l)*Y(omega,t)*(Z(omega,t)^(-1));
                    tmpUD = tmpUD + H(omega,l);
                end
-               U(l.t) = tmpUN/tmpUD;
+               U(l,t) = tmpUN/tmpUD;
             end
         end
     end    
