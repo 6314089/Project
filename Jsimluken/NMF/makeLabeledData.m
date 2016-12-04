@@ -1,4 +1,4 @@
-function F = makeLabeledData()
+function [F] = makeLabeledData()
     omega = 44100*2;
     command = 'ls F/';
     [~,cmdout] = unix(command);
@@ -10,7 +10,7 @@ function F = makeLabeledData()
         if size(ad,2) >1
             ad = (ad(:,1) + ad(:,2))/2;
         end
-        st = abs(fft(ad(1:omega))); 
-        F(:,i) = st';
+        st = fft(ad(1:omega)); 
+        F(:,i) = abs(st)';
     end
 return
