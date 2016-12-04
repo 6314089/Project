@@ -8,6 +8,8 @@ function [G,H,U] = psnmf(Y,F,rank,mew)
     
     
     for i = 1:100
+        %updating Z
+        Z = F*G + H*U;
         %updating G
         for k = 1:frank
             for t = 1:T
