@@ -1,4 +1,4 @@
-function [F,G,H,U] = psnmf(Y,F,rank,mew)
+function [G,H,U] = psnmf(Y,F,rank,mew)
     [OMEGA,T] = size(Y);
     frank = size(F,2); % col counts of F which is traning data
     G = rand(frank,T);
@@ -34,7 +34,7 @@ function [F,G,H,U] = psnmf(Y,F,rank,mew)
                 for k = 1:frank
                     tmpHD2 = tmpHD2+F(omega,k);
                     for omega_ = 1:OMEGA
-                        tmpHD3 = tmpHD3 + F(omega_,k)*H(OMEGA_,l);
+                        tmpHD3 = tmpHD3 + F(omega_,k)*H(omega_,l);
                     end
                 end
                 H(omega,l) = H(omega,l)*(tmpHN/(tmpHD1*2*mew*tmpHD2*tmpHD3));
