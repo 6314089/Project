@@ -1,8 +1,8 @@
-function [y1,y2] =  testPSNMF()
+function [y1,y2,F,G,H,U] =  testPSNMF()
     step = 2048;
     length = 4096;
     window = @hann;
-    rank = 5;
+    rank = 3;
     mew = 1;
     [x,fs] = audioread('~/Assets/Riff2.wav');
     x = (x(:,1)+x(:,2))/2;
@@ -13,11 +13,11 @@ function [y1,y2] =  testPSNMF()
     F = makeLabeledData();
     [G,H,U] = psnmf(Y,F,rank,mew);
     y1 = zeros(size(x,1)-l,rank);
-    y2 = zeros(size(x,1)-l,rank);
+    y2 = zeros(size(x,1)-l,size(F,2));
     for i = 1:rank
-       % disp(size(x))
-        %disp(size(reconstruct(H,U,phase,step,length,window,i)));
         y1(:,i) = reconstruct(H,U,phase,step,length,window,i);
-        y2(:,i) = reconstruct(F,G,phase,step,length,window,i);
+    end
+    for k = 1:size(F,2)
+        y2(:,k) = reconstruct(F,G,phase,step,length,window,k);
     end
 end

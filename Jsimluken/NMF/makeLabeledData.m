@@ -1,9 +1,10 @@
-function [F] = makeLabeledData()
-    omega = 44100*2;
+function [F,sg] = makeLabeledData()
+    omega = 4096;
     command = 'ls F/';
     [~,cmdout] = unix(command);
     files = strsplit(cmdout);
     F = zeros(omega,size(files,2)-1);
+    sg = zeros(omega,size(files,2)-1);
     for i = 1:(size(files,2)-1)
         name = strcat('F/',char(files(i)));
         ad = audioread(name);
@@ -12,5 +13,6 @@ function [F] = makeLabeledData()
         end
         st = fft(ad(1:omega)); 
         F(:,i) = abs(st)';
+        sg(:,i) = st';
     end
 return
