@@ -1,13 +1,13 @@
 function r = pitch(w)
 [a,b]=size(w);
 n=5;
-t=150;
 r=zeros(1,b);
 for i=1:b
     l=[];
     [y,x] = findpeaks(w(1:(a/2),i));
     m=0;
     for j=1:length(x)
+        t=max(w(1:(a/2),i))/5;
         if y(j) > t
             l=[l,x(j)];
             m=m+1;
@@ -22,8 +22,8 @@ for i=1:b
     end
     v=v/m*2;
     
-    P=[87.31 , 92.5 , 98 , 103.83 , 110 , 116.54 , 123.47 , 130.81 , 138.59 , 146.83 , 155.56 , 164.81];
-    %P(1)=F=fa,P(5)=A=ra
+    P=[130.81 , 138.59 , 146.83 , 155.56 , 164.81, 87.31 , 92.5 , 98 , 103.83 , 110 , 116.54 , 123.47 ];
+    %P(1)=C=do,P(10)=A=ra
     V=100;
     p=0;
     for q=1:length(P)        
@@ -41,6 +41,7 @@ for i=1:b
                 l2=[];
                 [y2,x2] = findpeaks(S(1:(length(S)/2)));
                 for j=1:length(x2)
+                    t=max(S)/3;
                     if S(j) > t
                         l2=[l2,x2(j)];
                     end
