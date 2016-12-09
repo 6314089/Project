@@ -1,6 +1,11 @@
 function [F,sg] = makeLabeledData()
     omega = 4096;
-    command = 'ls F/';
+    command = '';
+    if ismac
+        command = 'ls F/';
+    else
+        command = 'dir /b F';
+    end
     [~,cmdout] = unix(command);
     files = strsplit(cmdout);
     F = zeros(omega,size(files,2)-1);
