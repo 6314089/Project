@@ -7,7 +7,7 @@ for i=1:b
     [y,x] = findpeaks(w(1:(a/2),i));
     m=0;
     for j=1:length(x)
-        t=max(w(1:(a/2),i))/5;
+        t=max(w(1:(a/2),i))/3;
         if y(j) > t
             l=[l,x(j)];
             m=m+1;
