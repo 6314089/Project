@@ -10,7 +10,7 @@ function y =  testNMF()
     sg = stft(x,window,step,length,fs);
     phase = angle(sg);
     Y = abs(sg);
-    [H,U] = d_nmf(Y,rank);
+    [H,U] = nmf(Y,rank);
     for i = 1:rank
        % disp(size(x))
         %disp(size(reconstruct(H,U,phase,step,length,window,i)));

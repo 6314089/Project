@@ -10,10 +10,17 @@ if (exist('u0', 'var'))
 end
 avoidZero = 1e-27;
 
-for r = 1:100
+congestedH = false;
+congestedU = false;
+%while(~(congestedH && congestedU))
+for r = 1:1000
     % Eu dist ... seems legit
-    H = H .* (Y * U') ./ ((H * U) * U' + avoidZero);
-    U = U .* (H' * Y) ./ (H' * H * U + avoidZero);
+    tmpH = H .* (Y * U') ./ ((H * U) * U' + avoidZero);
+    congestedH = congested(tmpH,H);
+    H = tmpH;
+    tmpU = U .* (H' * Y) ./ (H' * H * U + avoidZero);
+    congestedU = congested(tmpU,U);
+    U = tmpU;
     
     % IS divergence ... not sure if this is correct
     %hui = (H * U) .^ -1;
