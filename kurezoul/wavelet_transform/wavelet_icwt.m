@@ -17,12 +17,9 @@ end
 scale = s0*2.^((0:J1)*dj);
 
 data = zeros(size,1);
+co = sqrt(scale);
 for len = 1:size
-    xln = 0;
-    for wid = 1:length(scale)
-        sj = sqrt(1/scale(wid));
-       xln = xln +  real(spectrogram(wid,len))/sj;
-    end
-    data(len,1) = (dj*sqrt(dt))/(Cd*pow)*xln;
+    reX = co * real(spectrogram(:,len));
+    data(len,1) = (dj*sqrt(dt))/(Cd*pow)*reX;
 end
 return
