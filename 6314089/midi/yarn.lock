@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+lodash@^4.17.2:
+  version "4.17.2"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
+
 midievents@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/midievents/-/midievents-1.0.1.tgz#f7c8ba7efb657f2c3bc80c2cbd19117234d2cc52"
