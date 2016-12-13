@@ -28,8 +28,8 @@ module.exports = (targetDir) => {
     }
   });
 
-  result.base = [...Array(128)]
-  .map((_, index) => readCsv(path.join(targetDir, `base/${index}.csv`)))
+  result.bass = [...Array(128)]
+  .map((_, index) => readCsv(path.join(targetDir, `bass/${index}.csv`)))
   .map(data => {
     if (data === '') return [];
     else {

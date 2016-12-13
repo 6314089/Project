@@ -50,13 +50,13 @@ module.exports = (targetDir) => {
 
   const ret = {
     piano: [],
-    base: [],
+    bass: [],
     drums: [],
   };
 
   for (let i = 0; i < 128; i++) {
     ret.piano[i] = temp[config.channelNumber.piano][i] || [];
-    ret.base[i] = temp[config.channelNumber.base][i] || [];
+    ret.bass[i] = temp[config.channelNumber.bass][i] || [];
     ret.drums[i] = temp[config.channelNumber.drums][i] || [];
   }
   return ret;

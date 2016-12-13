@@ -2,7 +2,7 @@
   "midifileName": "test.mid",
   "channelNumber": {
     "piano": 0,
-    "base": 1,
+    "bass": 1,
     "drums": 9
   },
   "error": 100
