@@ -13,7 +13,7 @@ for i=1:a
         if y(j) > t
             r(i,x(j))=2;
         end
-        if (y(j) > t) && (j<length(x)) && r(i,x(j)+1)==0
+        if (y(j) > t) && (x(j)<b) && r(i,x(j)+1)==0
             r(i,x(j))=0;
         end
     end       
