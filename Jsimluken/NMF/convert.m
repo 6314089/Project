@@ -6,8 +6,8 @@ function res = convert(data,step,frameLen)
     e = frameLen;
     for i = 1:num
         for j = 1:rank
-           if data(rank,i) ~=2
-                res(j,s:e) = data(rank,i);
+           if data(j,i) ~=2
+                res(j,s:e) = data(j,i);
            else 
                res(j,s:e) = 1;
                res(j,s) = 2;
