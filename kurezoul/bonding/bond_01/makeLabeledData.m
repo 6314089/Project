@@ -1,25 +1,35 @@
-function [F,sg] = makeLabeledData(direct_path)
+function [F, ins] = makeLabeledData(sourceDir, instruments)
+    ext = '.wav';
     omega = 4096;
     command = '';
     if ismac
-        command = 'ls /';
+        command = strcat('ls');
     else
-        command = 'dir /b ';
+        command = 'dir /b';
     end
-    command = [command,direct_path];
-    
-    [~,cmdout] = unix(command);
-    files = strsplit(cmdout);
-    F = zeros(omega,size(files,2)-1);
-    sg = zeros(omega,size(files,2)-1);
-    for i = 1:(size(files,2)-1)
-        name = strcat('F/',char(files(i)));
-        ad = audioread(name);
-        if size(ad,2) >1
-            ad = (ad(:,1) + ad(:,2))/2;
+    F = [];
+    ins = cell(size(instruments, 1), 1);
+    for j = 1:size(instruments, 1);
+        subDir = instruments(j, :);
+        targetDir = strcat(sourceDir, '/', subDir, '/');
+        [~,cmdout] = unix(strcat(command, [' ', targetDir, '*', ext]));
+        files = strsplit(cmdout);
+        preSize = size(F, 2);
+        additionalSize = size(files, 1);
+        F = [F, zeros(omega, additionalSize)];
+        tempIns = [];
+        for i = 1:(size(files,2)-1)
+            fileName = char(files(i));
+            slsPos = strfind(fileName, '/');
+            tempIns = [tempIns; fileName(slsPos(length(slsPos)) + 1:length(fileName) - length(ext))];
+            name = strcat(fileName);
+            ad = audioread(name);
+            if size(ad,2) >1
+                ad = (ad(:,1) + ad(:,2))/2;
+            end
+            st = fft(ad(1:omega)); 
+            F(:, i + preSize) = abs(st)';
         end
-        st = fft(ad(1:omega)); 
-        F(:,i) = abs(st)';
-        sg(:,i) = st';
+        ins{j} = tempIns;
     end
 return
