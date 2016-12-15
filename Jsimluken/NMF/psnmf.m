@@ -29,18 +29,20 @@ function [G,H,U,Z] = psnmf(Y,F,rank,mew)
                 tmpHN = 0;
                 tmpHD1 = 0;
                 tmpHD2 = 0;
-                tmpHD3 = 0;
+                %tmpHD3 = 0;
                 for t = 1:T
                    tmpHN = tmpHN + Y(omega,t)*U(l,t)/(Z(omega,t)+avoidZero);
                    tmpHD1 = tmpHD1 + U(l,t);
                 end
                 for k = 1:frank
-                    tmpHD2 = tmpHD2+F(omega,k);
+                    tmpHD3 = 0;
+                    %tmpHD2 = tmpHD2+F(omega,k);
                     for omega_ = 1:OMEGA
                         tmpHD3 = tmpHD3 + F(omega_,k)*H(omega_,l);
                     end
+                    tmpHD2 = tmpHD2 + F(omega,k)*tmpHD3;
                 end
-                H(omega,l) = H(omega,l)*(tmpHN/(tmpHD1+2*mew*tmpHD2*tmpHD3));
+                H(omega,l) = H(omega,l)*(tmpHN/(tmpHD1+2*mew*tmpHD2));
             end
         end
         %updating U
