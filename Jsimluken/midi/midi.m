@@ -1,5 +1,5 @@
 function midi(G,ins,step,length)
-    directory = 'mori/';
+    directory = 'sakura/';
     correct = 0;
     debug = true;
     if debug
