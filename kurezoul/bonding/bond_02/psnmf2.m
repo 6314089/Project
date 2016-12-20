@@ -7,17 +7,27 @@ function [G,H,U,Z] = psnmf2(Y,F,rank,mew)
     Z  = zeros(size(Y));
     avoidZero = 1e-27;
     mew2 = 2 * mew;
-    for i = 1:100
-        disp(i);
+    isCongested = false;
+    count = 0;
+    %while~(isCongested)
+    for i = 1:1000
+        count = count +1;
+        %disp(count);
         %updating Z
         Z = F*G + H*U;
+        
         yDivZ = Y ./ (Z + avoidZero);
-        %disp(Z);
         %updating G
-        G = bsxfun(@rdivide, G .* (F' * yDivZ), sum(F)' + avoidZero);
+        tmpG = bsxfun(@rdivide, G .* (F' * yDivZ), sum(F)' + avoidZero);
+        isCongested = isCongested &congested(tmpG,G);
+        G = tmpG;
         % updating H
-        H = H .* (yDivZ * U') ./ (bsxfun(@plus, sum(U, 2)', (F * (F' * H)) * mew2) + avoidZero);
+        tmpH = H .* (yDivZ * U') ./ (bsxfun(@plus, sum(U, 2)', (F * (F' * H)) * mew2) + avoidZero);
+        isCongested = isCongested &congested(tmpH,H);
+        H = tmpH;
         %updating U
-        U = bsxfun(@rdivide, U .* (H' * yDivZ), sum(H)' + avoidZero);
+        tmpU = bsxfun(@rdivide, U .* (H' * yDivZ), sum(H)' + avoidZero);
+        isCongested = isCongested &congested(tmpU,U);
+        U = tmpU;
     end    
 return
