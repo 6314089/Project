@@ -1,26 +1,25 @@
-function[piano,bass,drum] = bond(data_path,direct_path)
+function[Pas,G,ins] = bond(direct_path)
 
-    [Ham,Pas] = hpss(data_path, 4096, 2048, 0.6, 1.1, 1, 30);
+    window = 4096;
+    step = 2048;
+    wav_des = '/*.wav';
+    command = [direct_path,wav_des];
+    listing = dir(command);
+    file_name = listing.name;
+    path = [direct_path,'/',file_name];
+
+    [Ham,Pas] = hpss(path, window, step, 0.6, 1.1, 1, 30);
 
     % Pas -> izac 
 
-    Y = abs(Ham);
-    path_base = '/base';
-    path_piano = '/piano';
-    path_base = [direct_path,path_base];
-    path_piano = [direct_path,path_piano];
-    F_1 = makeLabeledData(path_base);
-    F_2 = makeLabeledData(path_piano);
-    base_len = size(F_1);
-    piano_len = size(F_2); 
+      Y = abs(Ham);
+      [F,ins] = makeLabeledData(direct_path,['base','piano']);
     
-    F = [F_1,F_2];
-    rank = 3;
-    mew = 1;
-    [G,~,~] = psnmf(Y,F,rank,mew);
+      rank = 3;
+      mew = 1;
+      [G,~,~] = psnmf2(Y,F,rank,mew);
     
-    G_base = G(1:base_len,:); 
-    G_piano = G(base_len:base_len+piano_len,:);
 %  H,U -> disposal
 %  G -> time function?
+return
 end
