@@ -16,5 +16,5 @@ function [H, P] = hpss(path, window, step, gamma, w, u, num)
 [data, Fs] = audioread(path);
 X = stft(mono(data), @hann, step, window, Fs);
 
-[H, P] = hpss_core(X, gamma, w, u, num);
+[H, P] = hpss_core2(X, gamma, w, u, num);
 return
