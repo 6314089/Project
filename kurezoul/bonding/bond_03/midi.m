@@ -2,10 +2,10 @@ function midi(G,ins,step,length,path,f_name)
     
     directory = path;
     
-    if exist('f_name','var')
+    if ~exist('f_name','var')
        f_name = 'tmp.csv'; 
     end
-    fileID = fopen('tmp.csv','w');
+    fileID = fopen(f_name,'w');
     %sampleG = convert(timedG,step,length);
     %testSE = findSE(sampleG);    
     s = 1;
@@ -43,7 +43,7 @@ function midi(G,ins,step,length,path,f_name)
         %count = 0;
         for j = 2:size(names,1)
             file_m = [directory,inst,names(j,:),'.csv'];
-            disp(file_m)
+            %disp(file_m)
             midi_data = csvread(file_m);
             %disp(midi_data)
             %midi_data = findSE(midi_data);
