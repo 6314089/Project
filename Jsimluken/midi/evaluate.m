@@ -1,9 +1,10 @@
-function [correctCounts,unnecessaryCount] =  evaluate(midi_data,test_data)
-    error = 1000;
+function [correctCounts,missCounts,unnecessaryCount] =  evaluate(midi_data,test_data)
+    error = 4000;
     responsible_table = zeros(1,size(midi_data,1));
     used_table = zeros(1,size(test_data,1));
     correctCounts = 0;
     unnecessaryCount = 0;
+    %disp(test_data)
     %currentJ = 1;
     for i = 1:size(midi_data,1)
         div = abs(midi_data(i,1)-test_data(1,1))+abs(midi_data(i,2)-test_data(1,2));
@@ -14,14 +15,20 @@ function [correctCounts,unnecessaryCount] =  evaluate(midi_data,test_data)
                 div = tmpDiv;
                 index = j;
             end
-            startDiv = abs(midi_data(i,1)-test_data(index,1));
+            
+        end
+        startDiv = abs(midi_data(i,1)-test_data(index,1));
             if startDiv < error 
                 responsible_table(i) = index;
                 correctCounts =correctCounts +1; 
                 used_table(index) = used_table(index) + 1;
             end
-        end
     end
-    f = find(used_table==0);
-    unnecessaryCount = size(f,2);
+    f = find(used_table>0);
+    m = find(responsible_table==0);
+    %disp('used_table')
+    %disp(used_table)
+    %disp('used_table')
+    unnecessaryCount = size(f,2)-correctCounts;
+    missCounts = size(m,2);
 return

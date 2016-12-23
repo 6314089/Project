@@ -4,7 +4,7 @@ function res = findSE(data)
     [~,S] = findpeaks(data);
     eventCounts = size(S,2);
     res = zeros(eventCounts,2);
-    disp(eventCounts);
+    %disp(eventCounts);
     for i = 1:eventCounts
         res(i,1) = S(i);
         j = S(i)+1;

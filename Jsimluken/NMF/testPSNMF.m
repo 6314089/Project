@@ -1,4 +1,4 @@
-function [y1,y2,F,G,H,U] =  testPSNMF()
+function [y1,y2,F,G,H,U,ins] =  testPSNMF()
     step = 2048;
     length = 4096;
     window = @hann;
@@ -10,7 +10,7 @@ function [y1,y2,F,G,H,U] =  testPSNMF()
     sg = stft(x,window,step,length,fs);
     phase = angle(sg);
     Y = abs(sg);
-    F = makeLabeledData_();
+    [F,ins] = makeLabeledData('sakurasakura',{'drum'});
     [G,H,U] = psnmf2(Y,F,rank,mew);
     y1 = zeros(size(x,1)-l,rank);
     y2 = zeros(size(x,1)-l,size(F,2));
