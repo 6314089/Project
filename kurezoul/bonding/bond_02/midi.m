@@ -1,18 +1,26 @@
-function midi(G,ins,step,length)
+function midi(G,ins,step,length,path,f_name)
     
-    directory = 'elise/';
-    correct = 0;
-    debug = true;
-    if debug
-        step = 2048;
-        length = 4096;
+    directory = path;
+    
+    if ~exist('f_name','var')
+       f_name = 'tmp.csv'; 
     end
+    fileID = fopen(f_name,'w');
     %sampleG = convert(timedG,step,length);
     %testSE = findSE(sampleG);    
     s = 1;
     %ins_counts = 0;
     %count = 0;
+    s_NoteCounts = 0;
+    s_Corrects = 0;
+    
+    fprintf(fileID,'Instrument,Chroma,Note,Corrects!!,Miss!!,Daburi,Rate\n');
     for i = 1:size(ins,1)
+        m_noteCounts = 0;
+        t_noteCounts = 0;
+        corrects = 0;
+        missCounts = 0;
+        uCounts = 0;
         names = ins{i};
         inst = names(1,:);
         ins_counts = size(names,1)-1;
@@ -42,14 +50,34 @@ function midi(G,ins,step,length)
             %count = count + 1;
             test_data = findSE(sampleG(j-1,:));
             %disp(test_data)
-            [cc,mc,uc] = evaluate(midi_data,test_data);
+            [cc,mc,uc] = evaluate(midi_data,test_data,step);
+            nc =  size(midi_data,1);
             %disp(inst);
-            disp([' ',file_m]);            
-            disp(['ノート数: ',num2str(size(midi_data,1))]);
-            disp(['合ってた数: ',num2str(cc)]);
-            disp(['判定できなかった数: ',num2str(mc)])
-            disp(['余分に判定した数: ',num2str(uc)])
+            %disp([' ',file_m]);            
+            %disp(['ノート数: ',num2str(nc)]);
+            %disp(['合ってた数: ',num2str(cc)]);
+            %disp(['判定できなかった数: ',num2str(mc)])
+            %disp(['余分に判定した数: ',num2str(uc)])
+            chroma = strsplit(file_m,'/');
+            chroma = char(chroma(size(chroma)));
+            chroma = names(j,:);
+           
+            fprintf(fileID,[inst,',',chroma,',',num2str(nc),',',num2str(cc),',',num2str(mc),',',num2str(uc),',',num2str(100*cc/nc),'\n']);
+            m_noteCounts = m_noteCounts + size(midi_data,1);
+            t_noteCounts = t_noteCounts + size(test_data,1);
+            corrects = corrects + cc;
+            missCounts = missCounts + mc;
+            uCounts = uCounts + uc;
         end
-        %instruments(i) = size(cell2mat(N(i)),1);       
-    end    
+        s_NoteCounts = s_NoteCounts + m_noteCounts;
+        s_Corrects = s_Corrects + corrects;
+        cp = 100*(corrects)/m_noteCounts;
+        up = 100*(uCounts)/t_noteCounts;
+        %disp(['正答率: ',num2str(cp)]);
+        %disp(['ノイズ率: ',num2str(up)]);
+        %instruments(i) = size(cell2mat(N(i)),1);
+        fprintf(fileID,['_,Sum,',num2str(m_noteCounts),',',num2str(corrects),',',num2str(m_noteCounts-corrects),',',num2str(uCounts),',',num2str(100*corrects/m_noteCounts),'\n']);
+    end
+    fprintf(fileID,['Sum,Sum,',num2str(s_NoteCounts),',',num2str(s_Corrects),',',num2str(s_NoteCounts-s_Corrects),',_,',num2str(100*s_Corrects/s_NoteCounts),'\n']);
+    fclose(fileID);
 return

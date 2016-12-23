@@ -1,5 +1,5 @@
-function [correctCounts,missCounts,unnecessaryCount] =  evaluate(midi_data,test_data)
-    error = 2048;
+function [correctCounts,missCounts,unnecessaryCount] =  evaluate(midi_data,test_data,error)
+    
     responsible_table = zeros(1,size(midi_data,1));
     used_table = zeros(1,size(test_data,1));
     correctCounts = 0;
