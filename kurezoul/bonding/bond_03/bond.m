@@ -9,7 +9,7 @@ function [F,G] =  bond(direct_path)
     listing = dir(command);
     
     if ismac
-        file_name = listing(2).name;
+        file_name = listing.name;
     else
         file_name = listing.name;
     end
@@ -29,7 +29,7 @@ function [F,G] =  bond(direct_path)
     Y = abs(X);
     [F,ins] = makeLabeledData(direct_path,{'bass';'piano';'drum'});
     [G,~,~] = psnmf2(Y,F,rank,mew);
-    midi(G,ins,step,window);
+    midi(G,ins,step,window,direct_path);
 %  H,U -> disposal
 %  G -> time function?
 return 
