@@ -10,7 +10,7 @@ function [G,H,U,Z] = psnmf2(Y,F,rank,mew)
     isCongested = false;
     count = 0;
     %while~(isCongested)
-    for i = 1:1000
+    for i = 1:100
         count = count +1;
         %disp(count);
         %updating Z
