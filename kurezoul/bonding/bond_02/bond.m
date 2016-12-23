@@ -1,4 +1,8 @@
-function [F,G] =  bond(direct_path)
+function [F,G] =  bond(direct_path,o_path)
+    
+    if ~exist('o_path','var')
+       o_path = 'tmp.csv'; 
+    end
 
     window = 4096;
     step = 2048;
@@ -9,7 +13,7 @@ function [F,G] =  bond(direct_path)
     listing = dir(command);
     
     if ismac
-        file_name = listing(2).name;
+        file_name = listing.name;
     else
         file_name = listing.name;
     end
@@ -21,12 +25,12 @@ function [F,G] =  bond(direct_path)
     Y_Pas = abs(Pas);
     [F_drum,ins_drum] = makeLabeledData(direct_path,{'drum'});
     [G_drum,~,~] = psnmf2(Y_Pas,F_drum,rank,mew);
-    midi(G_drum,ins_drum,step,window);
+    midi(G_drum,ins_drum,step,window,direct_path,['drum_',o_path]);
 
     Y_Ham = abs(Ham);
     [F_Ham,ins_Ham] = makeLabeledData(direct_path,{'bass';'piano'});
     [G_Ham,~,~] = psnmf2(Y_Ham,F_Ham,rank,mew);
-    midi(G_Ham,ins_Ham,step,window);
+    midi(G_Ham,ins_Ham,step,window,direct_path,['Ham_',o_path]);
 %  H,U -> disposal
 %  G -> time function?
 return 
